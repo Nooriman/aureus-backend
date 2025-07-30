@@ -12,3 +12,5 @@ app.use(authRoute);
 // Private Route
 app.use(jobsRoute);
 app.use(profileRoute);
+
+module.exports = app;
