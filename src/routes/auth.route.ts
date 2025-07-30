@@ -1,17 +1,19 @@
 import { Router, Request, Response } from "express";
+import { AuthController } from "../controllers/auth.controller";
 
 const router = Router();
+const authController = new AuthController();
 
 router.post("/login", (req: Request, res: Response) => {
-  console.log("login");
+  authController.login(req, res);
 });
 
 router.post("/register", (req: Request, res: Response) => {
-  console.log("register");
+  authController.register(req, res);
 });
 
 router.post("/logout", (req: Request, res: Response) => {
-  console.log("logout");
+  authController.logout(req, res);
 });
 
 export default router;

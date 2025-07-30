@@ -1,25 +1,27 @@
 import { Request, Response, Router } from "express";
+import { JobsController } from "../controllers/jobs.controller";
 
 const router = Router();
+const jobsController = new JobsController();
 
 router.get("/all-jobs", (req: Request, res: Response) => {
-  console.log("all-jobs api");
+  jobsController.getAllJobs(req, res);
 });
 
 router.get("/job-details", (req: Request, res: Response) => {
-  console.log("job details");
+  jobsController.getJobDetails(req, res);
 });
 
 router.post("/apply-job", (req: Request, res: Response) => {
-  console.log("apply job");
+  jobsController.applyJob(req, res);
 });
 
 router.get("/applied-jobs", (req: Request, res: Response) => {
-  console.log("applied jobs");
+  jobsController.getAppliedJobs(req, res);
 });
 
 router.put("/delete-job", (req: Request, res: Response) => {
-  console.log("delete job");
+  jobsController.deleteJob(req, res);
 });
 
 export default router;

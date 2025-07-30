@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 
-export class AuthController {
+export class JobsController {
   constructor() { }
 
-  async login(req: Request, res: Response) {
+  async getAllJobs(req: Request, res: Response) {
     try {
       res.status(StatusCodes.OK).json({ message: "123" });
     } catch (error: any) {
@@ -14,7 +14,7 @@ export class AuthController {
     }
   }
 
-  async register(req: Request, res: Response) {
+  async getJobDetails(req: Request, res: Response) {
     try {
       res.status(StatusCodes.OK).json({ message: "123" });
     } catch (error: any) {
@@ -24,7 +24,27 @@ export class AuthController {
     }
   }
 
-  async logout(req: Request, res: Response) {
+  async applyJob(req: Request, res: Response) {
+    try {
+      res.status(StatusCodes.OK).json({ message: "123" });
+    } catch (error: any) {
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ message: error.message });
+    }
+  }
+
+  async getAppliedJobs(req: Request, res: Response) {
+    try {
+      res.status(StatusCodes.OK).json({ message: "123" });
+    } catch (error: any) {
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ message: error.message });
+    }
+  }
+
+  async deleteJob(req: Request, res: Response) {
     try {
       res.status(StatusCodes.OK).json({ message: "123" });
     } catch (error: any) {
