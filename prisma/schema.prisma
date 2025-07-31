@@ -13,3 +13,55 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Profile {
+  id          String    @id @default(uuid())
+  firstName   String    @db.VarChar(50)
+  lastName    String    @db.VarChar(50)
+  email       String    @unique @db.VarChar(100)
+  password    String    @db.VarChar(255)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+  roleId      Int
+  role        Role      @relation(fields: [roleId], references: [id])
+  createdJobs Job[]     @relation("JobCreator")
+  updatedJobs Job[]     @relation("JobUpdater")
+  applications UserJobApplication[]
+}
+
+model Role {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique @db.VarChar(20)
+  users   Profile[]
+}
+
+model Job {
+  id          String    @id @default(uuid())
+  title       String    @db.VarChar(255)
+  description String
+  imageUrl    String?   @db.Text
+  isActive    Boolean   @default(true)
+  postedAt    DateTime  @default(now())
+  company     String    @db.VarChar(100)
+  salary      Int
+  createdBy   String
+  updatedBy   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  creator     Profile   @relation("JobCreator", fields: [createdBy], references: [id])
+  updater     Profile?  @relation("JobUpdater", fields: [updatedBy], references: [id])
+  applications UserJobApplication[]
+}
+
+model UserJobApplication {
+  userId     String
+  jobId      String
+  appliedAt  DateTime  @default(now())
+  status     String    @default("applied") @db.VarChar(20)
+
+  user       Profile   @relation(fields: [userId], references: [id])
+  job        Job       @relation(fields: [jobId], references: [id])
+
+  @@id([userId, jobId])
+}
