@@ -5,7 +5,6 @@ VALUES
 ON CONFLICT (name) DO NOTHING;
 
 INSERT INTO "Profile" (
-  "id",
   "firstName",
   "lastName",
   "email",
@@ -13,7 +12,6 @@ INSERT INTO "Profile" (
   "createdAt",
   "roleId"
 ) VALUES (
-  gen_random_uuid(),
   'Admin',
   'User',
   'admin@admin.com',
