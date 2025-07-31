@@ -4,7 +4,7 @@ import prisma from "../utils/prisma";
 import { hashPassword } from "../utils/bcrypt-hash";
 
 export class AuthController {
-  constructor() { }
+  constructor() {}
 
   async login(req: Request, res: Response) {
     const { email, password } = req.body;
@@ -76,11 +76,17 @@ export class AuthController {
 
   async logout(req: Request, res: Response) {
     try {
-      res.status(StatusCodes.OK).json({ message: "123" });
+      res.clearCookie("refresh_token", {
+        httpOnly: true,
+        secure: false, // only will be true if in prod
+        sameSite: "lax",
+      });
+
+      res.status(StatusCodes.OK).json({ message: "Successfully logged out" });
     } catch (error: any) {
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json({ message: error.message });
+        .json({ message: "Error loggin out user" });
     }
   }
 }
