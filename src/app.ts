@@ -8,8 +8,10 @@ const app = express();
 
 const { PORT } = process.env;
 
+app.use(express.json());
+
 app.use("/api", apiRoutes);
 
-app.listen(Number(process.env.PORT), () => {
+app.listen(Number(PORT), () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
