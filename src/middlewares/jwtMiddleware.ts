@@ -22,7 +22,7 @@ const jwtMiddleware = async (
   }
 
   try {
-    const decoded = jwt.verify(accessToken, String(JWT_SECRET_KEY));
+    jwt.verify(accessToken, String(JWT_SECRET_KEY));
 
     return next();
   } catch (error: any) {
