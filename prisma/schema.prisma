@@ -15,7 +15,7 @@ datasource db {
 }
 
 model Profile {
-  id          String    @id @default(uuid())
+  id          Int       @id @default(autoincrement())
   firstName   String    @db.VarChar(50)
   lastName    String    @db.VarChar(50)
   email       String    @unique @db.VarChar(100)
@@ -44,8 +44,8 @@ model Job {
   postedAt    DateTime  @default(now())
   company     String    @db.VarChar(100)
   salary      Int
-  createdBy   String
-  updatedBy   String?
+  createdBy   Int
+  updatedBy   Int?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
 
@@ -55,7 +55,7 @@ model Job {
 }
 
 model UserJobApplication {
-  userId     String
+  userId     Int 
   jobId      String
   appliedAt  DateTime  @default(now())
   status     String    @default("applied") @db.VarChar(20)
