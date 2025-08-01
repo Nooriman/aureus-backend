@@ -29,7 +29,7 @@ router.get("/applied-jobs", (req: Request, res: Response) => {
   jobsController.getAppliedJobs(req, res);
 });
 
-router.put("/delete-job", (req: Request, res: Response) => {
+router.patch("/delete-job/:id", (req: Request, res: Response) => {
   jobsController.deleteJob(req, res);
 });
 

@@ -99,11 +99,26 @@ export class JobsController {
 
   async deleteJob(req: Request, res: Response) {
     try {
-      res.status(StatusCodes.OK).json({ message: "123" });
+      const jobId = req.params.id;
+
+      if (!jobId) {
+        return res
+          .status(StatusCodes.BAD_REQUEST)
+          .json({ message: "Job ID is required" });
+      }
+
+      const updatedJob = await prisma.job.update({
+        where: { id: jobId },
+        data: { isActive: false },
+      });
+
+      res
+        .status(StatusCodes.OK)
+        .json({ message: "Job successfully deleted", data: updatedJob });
     } catch (error: any) {
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json({ message: error.message });
+        .json({ message: "Jobs not found with job id" });
     }
   }
 }
