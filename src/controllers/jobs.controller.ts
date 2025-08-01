@@ -8,7 +8,18 @@ export class JobsController {
 
   async getAllJobs(req: Request, res: Response) {
     try {
-      const jobs = await prisma.job.findMany();
+      const jobs = await prisma.job.findMany({
+        where: { isActive: true },
+        orderBy: { createdAt: "desc" },
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          company: true,
+          salary: true,
+          postedAt: true,
+        },
+      });
 
       res.status(StatusCodes.OK).json(jobs);
     } catch (error: any) {
