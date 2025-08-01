@@ -14,10 +14,6 @@ export class JobsController {
         select: {
           id: true,
           title: true,
-          description: true,
-          company: true,
-          salary: true,
-          postedAt: true,
         },
       });
 
@@ -31,7 +27,34 @@ export class JobsController {
 
   async getJobDetails(req: Request, res: Response) {
     try {
-      res.status(StatusCodes.OK).json({ message: "123" });
+      const jobsId = req.query.id;
+
+      if (!jobsId) {
+        return res
+          .status(StatusCodes.BAD_REQUEST)
+          .json({ message: "Job ID is required" });
+      }
+
+      const job = await prisma.job.findFirst({
+        where: { id: String(jobsId), isActive: true },
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          company: true,
+          salary: true,
+          imageUrl: true,
+          postedAt: true,
+        },
+      });
+
+      if (!job) {
+        return res
+          .status(StatusCodes.NOT_FOUND)
+          .json({ message: "Jobs is not found" });
+      }
+
+      res.status(StatusCodes.OK).json(job);
     } catch (error: any) {
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
