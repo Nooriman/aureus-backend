@@ -166,7 +166,26 @@ export class JobsController {
 
   async getAppliedJobs(req: Request, res: Response) {
     try {
-      res.status(StatusCodes.OK).json({ message: "123" });
+      const token = req.headers.authorization;
+      const user = getUserFromToken(token);
+
+      const jobs = await prisma.userJobApplication.findMany({
+        where: { userId: Number(user?.id) },
+        orderBy: { appliedAt: "desc" },
+        include: {
+          job: {
+            select: {
+              title: true,
+              description: true,
+              company: true,
+              salary: true,
+              imageUrl: true,
+            },
+          },
+        },
+      });
+
+      res.status(StatusCodes.OK).json(jobs);
     } catch (error: any) {
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
