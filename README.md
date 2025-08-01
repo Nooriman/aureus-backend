@@ -16,21 +16,6 @@ This is the backend server for the Aureus Job Board system. It provides authenti
 
 ---
 
-## 📁 Project Structure
-
-├── prisma/ # Prisma schema and migrations
-├── src/
-│ ├── controllers/ # Route controllers
-│ ├── middlewares/ # Middleware logic (e.g., JWT validation)
-│ ├── routes/ # Express route definitions
-│ ├── utils/ # Utility functions (e.g., token handling)
-│ └── app.ts # Express app entry
-├── .env # Environment variables
-├── README.md # You’re here
-└── tsconfig.json # TypeScript config
-
----
-
 ## 📦 Dependencies
 
 - Node.js
@@ -71,11 +56,5 @@ This contains full documentation of all available endpoints, request/response mo
     •	Register: POST /register
     •	Protected Routes require Authorization: <access_token> in the header.
     •	Use multipart/form-data when uploading images (e.g., create-job).
-
-## 🔐 Roles
-
-Role Value
-Admin 1
-User 2
 
 Admin users can manage job postings. Normal users can only apply for jobs.
