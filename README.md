@@ -35,7 +35,6 @@ This is the backend server for the Aureus Job Board system. It provides authenti
 Create a `.env` file in the root directory with the following content:
 
 ```env
-DATABASE_URL=postgresql://postgres:Lum14rkP0stgres@lumiarkdb.c96qicmqokfo.ap-southeast-1.rds.amazonaws.com:5432/aureus-test
 JWT_SECRET_KEY=3f2b4e5d1a7c8f6e9d0b124c7a38e0cd94f3bbd1a827fe3e6ceccf7bdc3a56ef
 JWT_EXPIRE_MIN=15
 JWT_EXPIRE_HR=8
