@@ -49,18 +49,20 @@ export class JobsController {
           .json({ message: "Missing required fields" });
       }
 
+      // create imageUrl
       let imageUrl = "";
       if (req.file) {
         imageUrl = `/uploads/${req.file.filename}`;
       }
 
+      // create jobs
       const job = await prisma.job.create({
         data: {
           title,
           description,
           company,
-          salary,
-          imageUrl,
+          salary: Number(salary),
+          imageUrl: imageUrl,
           createdBy: user.id,
         },
       });
