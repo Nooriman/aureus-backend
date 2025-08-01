@@ -113,7 +113,50 @@ export class JobsController {
 
   async applyJob(req: Request, res: Response) {
     try {
-      res.status(StatusCodes.OK).json({ message: "123" });
+      const jobId = req.body.id;
+
+      const token = req.headers.authorization;
+      const user = getUserFromToken(token);
+
+      const existingApplication = await prisma.userJobApplication.findFirst({
+        where: { jobId: jobId, userId: Number(user?.id) },
+      });
+
+      // handle if user already applied
+      if (existingApplication) {
+        return res
+          .status(StatusCodes.CONFLICT)
+          .json({ message: "You have already applied for this job" });
+      }
+
+      if (!jobId) {
+        return res
+          .status(StatusCodes.BAD_REQUEST)
+          .json({ message: "Job ID is required" });
+      }
+
+      const job = await prisma.job.findFirst({
+        where: { id: jobId, isActive: true },
+      });
+
+      // handle deleted job cases
+      if (!job) {
+        return res
+          .status(StatusCodes.BAD_REQUEST)
+          .json({ message: "Job have been deleted" });
+      }
+
+      const appliedJob = await prisma.userJobApplication.create({
+        data: {
+          jobId: jobId,
+          userId: Number(user?.id),
+        },
+      });
+
+      res.status(StatusCodes.OK).json({
+        message: "You have successfully applied for the job.",
+        data: appliedJob,
+      });
     } catch (error: any) {
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
