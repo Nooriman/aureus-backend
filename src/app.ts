@@ -1,4 +1,5 @@
 import cookieParser from "cookie-parser";
+import { setupSwagger } from "./config/swaggerConfig";
 
 const express = require("express");
 const apiRoutes = require("./routes");
@@ -15,6 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api", apiRoutes);
+
+setupSwagger(app);
 
 app.listen(Number(PORT), () => {
   console.log(`Server is running on http://localhost:${PORT}`);
