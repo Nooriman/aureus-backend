@@ -56,4 +56,8 @@ This contains full documentation of all available endpoints, request/response mo
     •	Protected Routes require Authorization: <access_token> in the header.
     •	Use multipart/form-data when uploading images (e.g., create-job).
 
+    Admin Credentials
+    email: admin@admin.com
+    pass: admin
+
 Admin users can manage job postings. Normal users can only apply for jobs.
